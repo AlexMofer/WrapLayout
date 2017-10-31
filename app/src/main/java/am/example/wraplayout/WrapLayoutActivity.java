@@ -1,34 +1,46 @@
 package am.example.wraplayout;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 
 import am.widget.wraplayout.WrapLayout;
 
-public class WrapLayoutActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener,
-RadioGroup.OnCheckedChangeListener{
+public class WrapLayoutActivity extends AppCompatActivity implements
+        SeekBar.OnSeekBarChangeListener, RadioGroup.OnCheckedChangeListener{
 
     private WrapLayout lytWrap;
 
     @Override
-    protected int getContentViewLayoutResources() {
-        return R.layout.activity_wraplayout;
-    }
-
-    @Override
-    @SuppressWarnings("all")
-    protected void initResource(Bundle savedInstanceState) {
-        setSupportActionBar(R.id.wly_toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        lytWrap = (WrapLayout) findViewById(R.id.wly_lyt_warp);
-        final RadioGroup rgGravity = (RadioGroup) findViewById(R.id.wly_rg_gravity);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wraplayout);
+        Toolbar mToolbar = findViewById(R.id.wly_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
+        }
+        lytWrap = findViewById(R.id.wly_lyt_warp);
+        final RadioGroup rgGravity = findViewById(R.id.wly_rg_gravity);
         rgGravity.setOnCheckedChangeListener(this);
         rgGravity.check(R.id.wly_rb_top);
-        final SeekBar sbHorizontal = (SeekBar) findViewById(R.id.wly_sb_horizontal);
+        final SeekBar sbHorizontal = findViewById(R.id.wly_sb_horizontal);
         sbHorizontal.setOnSeekBarChangeListener(this);
         sbHorizontal.setProgress(15);
-        final SeekBar sbVertical = (SeekBar) findViewById(R.id.wly_sb_vertical);
+        final SeekBar sbVertical = findViewById(R.id.wly_sb_vertical);
         sbVertical.setOnSeekBarChangeListener(this);
         sbVertical.setProgress(15);
     }
