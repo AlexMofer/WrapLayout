@@ -1,221 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".WrapLayoutActivity">
+    tool:context=".wraplayout.WrapLayoutActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/wly_toolbar"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/wl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/wraplayout_title"/>
+        android:background="?colorPrimary"
+        android:theme="@style/ThemeOverlay.WrapLayout.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.WrapLayout.Popup"
+        app:title="@string/app_name" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/wl_sb_vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:max="30"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ScrollView
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/wl_text_vertical"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/wl_sb_vertical"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/wl_sb_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:max="30"
+        app:layout_constraintBottom_toTopOf="@id/wl_sb_vertical" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/wl_text_horizontal"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/wl_sb_horizontal"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/wl_rg_gravity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/wl_sb_horizontal">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/wl_rb_top"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wl_gravity_top" />
 
-            <am.widget.wraplayout.WrapLayout
-                android:id="@+id/wly_lyt_warp"
-                android:layout_width="match_parent"
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/wl_rb_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wl_gravity_center" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/wl_rb_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wl_gravity_bottom" />
+
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="6dp"
+        android:text="@string/wl_text_gravity"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/wl_rg_gravity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@id/wl_rg_gravity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wl_toolbar">
+
+        <com.am.widget.wraplayout.WrapLayout
+            android:id="@+id/wl_wl_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_wraplayout_content"
+            android:gravity="top"
+            android:horizontalSpacing="10dp"
+            android:padding="10dp"
+            android:verticalSpacing="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_wraplayout_content"
-                android:horizontalSpacing="10dp"
+                android:background="?colorSecondary"
+                android:gravity="center"
                 android:padding="10dp"
-                android:verticalSpacing="10dp"
-                app:wlyGravity="top">
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minWidth="72dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minWidth="86dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white"
-                    app:wlyLayout_gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minHeight="64dp"
-                    android:minWidth="142dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minHeight="64dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minHeight="64dp"
-                    android:minWidth="108dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minWidth="96dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:minWidth="96dp"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorRipple"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/wraplayout_text"
-                    android:textColor="@color/white" />
-
-            </am.widget.wraplayout.WrapLayout>
-
-        </ScrollView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/wraplayout_text_gravity" />
-
-        <RadioGroup
-            android:id="@+id/wly_rg_gravity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/wly_rb_top"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wraplayout_gravity_top" />
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="72dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-            <RadioButton
-                android:id="@+id/wly_rb_center"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wraplayout_gravity_center" />
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="86dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-            <RadioButton
-                android:id="@+id/wly_rb_bottom"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wraplayout_gravity_bottom" />
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-        </RadioGroup>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wraplayout_text_horizontal" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="142dp"
+                android:minHeight="64dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-        <SeekBar
-            android:id="@+id/wly_sb_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:max="30" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minHeight="64dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wraplayout_text_vertical" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="108dp"
+                android:minHeight="64dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-        <SeekBar
-            android:id="@+id/wly_sb_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:max="30" />
-    </LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="96dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
 
-</LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:minWidth="96dp"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSecondary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wl_text"
+                android:textColor="@android:color/white" />
+
+        </com.am.widget.wraplayout.WrapLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

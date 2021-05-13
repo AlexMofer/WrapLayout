@@ -1,1 +1,3 @@
+rootProject.name = "WrapLayout"
 include ':app'
+include ':wraplayout'
